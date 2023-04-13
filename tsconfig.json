@@ -5,7 +5,7 @@
     "rootDir": "./",
     "baseUrl": "./src",
     "paths": {
-      "@appOctokit/*": ["appOctokit/*"],
+      "@auth/*": ["auth/*"],
       "@repositories/*": ["repositories/*"],
       "@service/*": ["service/*"]
     },
