@@ -1,0 +1,28 @@
+name: 'Content Change Validation'
+description: 'This action validates if a given directory/file has changed.'
+author: 'Paulo Eduardo Peixoto'
+branding:
+  color: 'blue'
+  icon: 'check-square'
+inputs:
+  authType:
+    description: 'Strategy for Authentication -> "app" or "pat".'
+    required: true
+  installationId:
+    description: 'GitHub App - Installation Id.'
+    required: false
+  appId:
+    description: 'GitHub App - App Id.'
+    required: false
+  privateKey:
+    description: 'GitHub App - Private Key.'
+    required: false
+  gitHubPersonalAccessToken:
+    description: 'Personal Access Token.'
+    required: false
+outputs:
+  success:
+    description: 'Returns whether or not there was a change in the indicated directory/file.'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
