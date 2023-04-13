@@ -1,9 +1,19 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via, [issue](https://github.com/padupe/action-compare-development-time-github-app/issues), email, or any other method with the owners of this
+When contributing to this repository, please first discuss the change you wish to make via, [issue](https://github.com/padupe/action-content-change-validation/issues), email, or any other method with the owners of this
 repository before making a change.
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
+
+## Usefull Commands
+
+Some scripts that can enhance your collaboration in this project:
+
+What? | Description
+:--: | :--
+`yarn install` |  Install Project dependencies at your environment.
+`yarn check-lint` | Validates code formatting and styling.
+`yarn package` | Performs the build and compilation of code from Typescript to Javascript.
 
 ## Branches Pattern
 
