@@ -34148,9 +34148,9 @@ var core_2 = __nccwpck_require__(2186);
 exports.gitHubApp = new core_1.Octokit({
     authStrategy: auth_app_1.createAppAuth,
     auth: {
-        installationId: Number((0, core_2.getInput)('installationId')),
-        appId: Number((0, core_2.getInput)('appId')),
-        privateKey: (0, core_2.getInput)('privateKey').replace(/\\n/g, '\n'),
+        installationId: Number((0, core_2.getInput)('installationId', { required: false })),
+        appId: Number((0, core_2.getInput)('appId', { required: false })),
+        privateKey: (0, core_2.getInput)('privateKey', { required: false }).replace(/\\n/g, '\n'),
     },
 });
 
@@ -34167,7 +34167,7 @@ exports.gitHubPAT = void 0;
 var core_1 = __nccwpck_require__(6762);
 var core_2 = __nccwpck_require__(2186);
 exports.gitHubPAT = new core_1.Octokit({
-    auth: (0, core_2.getInput)('gitHubPersonalAccessToken'),
+    auth: (0, core_2.getInput)('gitHubPersonalAccessToken', { required: false }),
 });
 
 
