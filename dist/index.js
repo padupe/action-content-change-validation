@@ -34271,7 +34271,7 @@ var typeAuth = (0, core_1.getInput)('authType');
 function run() {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
-        var pullRequestNumber, repoOwner, repoName, directoryOfFile, error_1;
+        var pullRequestNumber, repoOwner, repoName, dirOrFile, error_1;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -34280,8 +34280,8 @@ function run() {
                     pullRequestNumber = Number(gitHub.context.ref.split('/')[2]);
                     repoOwner = (_a = gitHub.context.payload.repository) === null || _a === void 0 ? void 0 : _a.owner.login;
                     repoName = (_b = gitHub.context.payload.repository) === null || _b === void 0 ? void 0 : _b.name;
-                    directoryOfFile = (0, core_1.getInput)('validate');
-                    return [4 /*yield*/, (0, contentChangeValidation_1.contentChangeValidation)(directoryOfFile, pullRequestNumber, repoName, repoOwner)];
+                    dirOrFile = (0, core_1.getInput)('directoryOrFile');
+                    return [4 /*yield*/, (0, contentChangeValidation_1.contentChangeValidation)(dirOrFile, pullRequestNumber, repoName, repoOwner)];
                 case 1:
                     _c.sent();
                     return [3 /*break*/, 3];
