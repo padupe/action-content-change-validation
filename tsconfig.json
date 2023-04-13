@@ -7,7 +7,8 @@
     "paths": {
       "@auth/*": ["auth/*"],
       "@repositories/*": ["repositories/*"],
-      "@service/*": ["service/*"]
+      "@service/*": ["service/*"],
+      "@utils/*": ["utils/*"]
     },
     "sourceMap": true,
     "outDir": "dist",
