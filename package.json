@@ -14,7 +14,8 @@
     "build": "swc src -d dist --source-maps --copy-files",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "package": "ncc build src/index.ts --license licenses.txt --source-map -o dist"
+    "package": "ncc build src/index.ts --license licenses.txt --source-map -o dist",
+    "check-lint": "yarn format && yarn lint"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.62",
