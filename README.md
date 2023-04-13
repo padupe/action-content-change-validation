@@ -58,10 +58,10 @@ Secret `CREDENTIALS_GITHUB_APP_PRIVATE_KEY` on format (no line break):
 
 1. Create directory `.github/worfklows` in the root of your project;
 
-2. Create file `compare.yaml` with content similar to the following:
+2. Create file `content-change-validation.yaml` with content similar to the following:
 
 ```yaml
-name: Compare
+name: Content Change Validation
 on:
   pull_request:
     types: [opened, reopened, synchronize]
@@ -85,10 +85,10 @@ jobs:
 
 1. Create directory `.github/worfklows` in the root of your project;
 
-2. Create file `compare.yaml` with content similar to the following:
+2. Create file `content-change-validation.yaml` with content similar to the following:
 
 ```yaml
-name: Compare
+name: Content Change Validation
 on:
   pull_request:
     types: [opened, reopened, synchronize]
