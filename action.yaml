@@ -8,6 +8,9 @@ inputs:
   authType:
     description: 'Strategy for Authentication -> "app" or "pat".'
     required: true
+  directoryOrFile:
+    description: 'Directory and/or file that must be evaluated.'
+    required: true
   installationId:
     description: 'GitHub App - Installation Id.'
     required: false
