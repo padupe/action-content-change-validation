@@ -10,10 +10,10 @@ async function run(): Promise<void> {
       const pullRequestNumber = Number(gitHub.context.ref.split('/')[2])
       const repoOwner = gitHub.context.payload.repository?.owner.login
       const repoName = gitHub.context.payload.repository?.name
-      const directoryOfFile = getInput('validate')
+      const dirOrFile = getInput('directoryOrFile')
 
       await contentChangeValidation(
-        directoryOfFile,
+        dirOrFile,
         pullRequestNumber,
         repoName as string,
         repoOwner as string,
