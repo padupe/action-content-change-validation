@@ -21,4 +21,10 @@ export interface IGitHubRepository {
     repoName: string,
     repoOwner: string,
   ) => Promise<Date>
+  getUserLastModified: (
+    directoryOrFile: string,
+    repoName: string,
+    repoOwner: string,
+  ) => Promise<string>
+  getRoleForUser: (repoOwner: string, username: string) => Promise<string>
 }
