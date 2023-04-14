@@ -34278,6 +34278,7 @@ function run() {
             switch (_c.label) {
                 case 0:
                     _c.trys.push([0, 4, , 5]);
+                    (0, core_1.info)('Start Proccess');
                     if (!exports.authType) return [3 /*break*/, 2];
                     pullRequestNumber = Number(gitHub.context.ref.split('/')[2]);
                     repoOwner = (_a = gitHub.context.payload.repository) === null || _a === void 0 ? void 0 : _a.owner.login;
