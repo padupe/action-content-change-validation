@@ -34433,6 +34433,46 @@ var GitHubAppRepository = /** @class */ (function () {
             });
         });
     };
+    GitHubAppRepository.prototype.getUserLastModified = function (directoryOrFile, repoName, repoOwner) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, modified;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.request('GET /repos/{owner}/{repo}/commits?path={directoryOrFile}', {
+                            owner: repoOwner,
+                            repo: repoName,
+                            directoryOrFile: directoryOrFile,
+                        })];
+                    case 1:
+                        user = _a.sent();
+                        modified = user === null || user === void 0 ? void 0 : user.data[0];
+                        if (!modified) {
+                            (0, core_1.setFailed)('Failure at "getUserLastModified".');
+                        }
+                        return [2 /*return*/, modified.author.link];
+                }
+            });
+        });
+    };
+    GitHubAppRepository.prototype.getRoleForUser = function (repoOwner, username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
+                            org: repoOwner,
+                            username: username,
+                        })];
+                    case 1:
+                        user = _a.sent();
+                        if (!user) {
+                            (0, core_1.setFailed)('Failure at "getRoleForUser"');
+                        }
+                        return [2 /*return*/, user.data.role];
+                }
+            });
+        });
+    };
     return GitHubAppRepository;
 }());
 exports.GitHubAppRepository = GitHubAppRepository;
@@ -34570,9 +34610,86 @@ var GitHubPATRepository = /** @class */ (function () {
             });
         });
     };
+    GitHubPATRepository.prototype.getUserLastModified = function (directoryOrFile, repoName, repoOwner) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user, modified;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.request('GET /repos/{owner}/{repo}/commits?path={directoryOrFile}', {
+                            owner: repoOwner,
+                            repo: repoName,
+                            directoryOrFile: directoryOrFile,
+                        })];
+                    case 1:
+                        user = _a.sent();
+                        modified = user === null || user === void 0 ? void 0 : user.data[0];
+                        if (!modified) {
+                            (0, core_1.setFailed)('Failure at "getUserLastModified".');
+                        }
+                        return [2 /*return*/, modified.author.link];
+                }
+            });
+        });
+    };
+    GitHubPATRepository.prototype.getRoleForUser = function (repoOwner, username) {
+        return __awaiter(this, void 0, void 0, function () {
+            var user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
+                            org: repoOwner,
+                            username: username,
+                        })];
+                    case 1:
+                        user = _a.sent();
+                        if (!user) {
+                            (0, core_1.setFailed)('Failure at "getRoleForUser"');
+                        }
+                        return [2 /*return*/, user.data.role];
+                }
+            });
+        });
+    };
     return GitHubPATRepository;
 }());
 exports.GitHubPATRepository = GitHubPATRepository;
+
+
+/***/ }),
+
+/***/ 2181:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+
+/***/ 3722:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__nccwpck_require__(2181), exports);
+__exportStar(__nccwpck_require__(6009), exports);
+__exportStar(__nccwpck_require__(1027), exports);
 
 
 /***/ }),
@@ -34621,65 +34738,213 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.contentChangeValidation = void 0;
 var core_1 = __nccwpck_require__(2186);
-var GitHubAppRepository_1 = __nccwpck_require__(6009);
-var GitHubPATRepository_1 = __nccwpck_require__(1027);
-var utils_1 = __nccwpck_require__(6252);
-var gitHubAppRepository = new GitHubAppRepository_1.GitHubAppRepository();
-var gitHubPATRepository = new GitHubPATRepository_1.GitHubPATRepository();
+var gitHubAppService_1 = __nccwpck_require__(6195);
+var gitHubPATService_1 = __nccwpck_require__(9058);
 var authType = (0, core_1.getInput)('authStrategy');
 function contentChangeValidation(directoryOrFile, pullRequestNumber, repoName, repoOwner) {
     return __awaiter(this, void 0, void 0, function () {
-        var lastModifiedDefaultBranch, branchBasePR, lastUpdateBranchBasePR, validateModified, lastModifiedDefaultBranch, branchBasePR, lastUpdateBranchBasePR, validateModified;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(authType === 'app')) return [3 /*break*/, 6];
-                    return [4 /*yield*/, gitHubAppRepository.getLastModifiedDate(directoryOrFile, repoName, repoOwner)];
+                    if (!(authType === 'app')) return [3 /*break*/, 2];
+                    return [4 /*yield*/, (0, gitHubAppService_1.gitHubAppService)(directoryOrFile, pullRequestNumber, repoName, repoOwner)];
                 case 1:
-                    lastModifiedDefaultBranch = _a.sent();
+                    _a.sent();
+                    return [3 /*break*/, 4];
+                case 2:
+                    if (!(authType == 'pat')) return [3 /*break*/, 4];
+                    return [4 /*yield*/, (0, gitHubPATService_1.gitHubPATService)(directoryOrFile, pullRequestNumber, repoName, repoOwner)];
+                case 3:
+                    _a.sent();
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
+exports.contentChangeValidation = contentChangeValidation;
+
+
+/***/ }),
+
+/***/ 6195:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gitHubAppService = void 0;
+var core_1 = __nccwpck_require__(2186);
+var GitHubAppRepository_1 = __nccwpck_require__(6009);
+var compareDate_1 = __nccwpck_require__(9488);
+var gitHubAppRepository = new GitHubAppRepository_1.GitHubAppRepository();
+function gitHubAppService(directoryOrFile, pullRequestNumber, repoName, repoOwner) {
+    return __awaiter(this, void 0, void 0, function () {
+        var lastChangeDefaultBranch, branchBasePR, lastUpdateBranchBasePR, validateModified, username, userRole;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, gitHubAppRepository.getLastModifiedDate(directoryOrFile, repoName, repoOwner)];
+                case 1:
+                    lastChangeDefaultBranch = _a.sent();
                     return [4 /*yield*/, gitHubAppRepository.getBranchBase(pullRequestNumber, repoName, repoOwner)];
                 case 2:
                     branchBasePR = _a.sent();
                     return [4 /*yield*/, gitHubAppRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)];
                 case 3:
                     lastUpdateBranchBasePR = _a.sent();
-                    validateModified = (0, utils_1.compareDate)(lastModifiedDefaultBranch, lastUpdateBranchBasePR);
-                    if (!(validateModified == false)) return [3 /*break*/, 5];
-                    return [4 /*yield*/, gitHubAppRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."), pullRequestNumber, repoName, repoOwner)];
+                    validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
+                    if (!(validateModified == false)) return [3 /*break*/, 9];
+                    return [4 /*yield*/, gitHubAppRepository.getUserLastModified(directoryOrFile, repoName, repoOwner)];
                 case 4:
-                    _a.sent();
-                    return [2 /*return*/, false];
+                    username = _a.sent();
+                    return [4 /*yield*/, gitHubAppRepository.getRoleForUser(repoOwner, username)];
                 case 5:
-                    (0, core_1.info)("This implementation did not make changes to ".concat(directoryOrFile, ", as per the standards defined by the organization/administrators of the repository."));
-                    (0, core_1.setOutput)('Validation Status', 'Approved');
-                    return [2 /*return*/, true];
+                    userRole = _a.sent();
+                    if (!(userRole === 'admin')) return [3 /*break*/, 7];
+                    return [4 /*yield*/, gitHubAppRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators.\n        Even though it is a change proposed by an Administrator, it is recommended that it be validated by another user."), pullRequestNumber, repoName, repoOwner)];
                 case 6:
-                    if (!(authType == 'pat')) return [3 /*break*/, 12];
-                    return [4 /*yield*/, gitHubPATRepository.getLastModifiedDate(directoryOrFile, repoName, repoOwner)];
-                case 7:
-                    lastModifiedDefaultBranch = _a.sent();
-                    return [4 /*yield*/, gitHubPATRepository.getBranchBase(pullRequestNumber, repoName, repoOwner)];
-                case 8:
-                    branchBasePR = _a.sent();
-                    return [4 /*yield*/, gitHubPATRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)];
-                case 9:
-                    lastUpdateBranchBasePR = _a.sent();
-                    validateModified = (0, utils_1.compareDate)(lastModifiedDefaultBranch, lastUpdateBranchBasePR);
-                    if (!(validateModified == false)) return [3 /*break*/, 11];
-                    return [4 /*yield*/, gitHubPATRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."), pullRequestNumber, repoName, repoOwner)];
-                case 10:
                     _a.sent();
-                    return [2 /*return*/, false];
-                case 11:
-                    (0, core_1.info)("This implementation did not make changes to ".concat(directoryOrFile, ", as per the standards defined by the organization/administrators of the repository."));
-                    (0, core_1.setOutput)('Validation Status', 'Approved');
-                    return [2 /*return*/, true];
-                case 12: return [2 /*return*/];
+                    (0, core_1.info)("Changes were made to \"".concat(directoryOrFile, "\", however, the responsible user is an Administrator. Review by another organization/repository administrator is recommended."));
+                    return [2 /*return*/, (0, core_1.setOutput)('result', 'pending')];
+                case 7: return [4 /*yield*/, gitHubAppRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."), pullRequestNumber, repoName, repoOwner)];
+                case 8:
+                    _a.sent();
+                    (0, core_1.setFailed)("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."));
+                    return [2 /*return*/, (0, core_1.setOutput)('result', 'failure')];
+                case 9:
+                    (0, core_1.info)("There were no changes to \"".concat(directoryOrFile, "\", so this implementation complies with organization/repository guidelines."));
+                    return [2 /*return*/, (0, core_1.setOutput)('result', 'success')];
             }
         });
     });
 }
-exports.contentChangeValidation = contentChangeValidation;
+exports.gitHubAppService = gitHubAppService;
+
+
+/***/ }),
+
+/***/ 9058:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gitHubPATService = void 0;
+var core_1 = __nccwpck_require__(2186);
+var index_1 = __nccwpck_require__(3722);
+var compareDate_1 = __nccwpck_require__(9488);
+var gitHubPATRepository = new index_1.GitHubPATRepository();
+function gitHubPATService(directoryOrFile, pullRequestNumber, repoName, repoOwner) {
+    return __awaiter(this, void 0, void 0, function () {
+        var lastChangeDefaultBranch, branchBasePR, lastUpdateBranchBasePR, validateModified, username, userRole;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, gitHubPATRepository.getLastModifiedDate(directoryOrFile, repoName, repoOwner)];
+                case 1:
+                    lastChangeDefaultBranch = _a.sent();
+                    return [4 /*yield*/, gitHubPATRepository.getBranchBase(pullRequestNumber, repoName, repoOwner)];
+                case 2:
+                    branchBasePR = _a.sent();
+                    return [4 /*yield*/, gitHubPATRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)];
+                case 3:
+                    lastUpdateBranchBasePR = _a.sent();
+                    validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
+                    if (!(validateModified == false)) return [3 /*break*/, 9];
+                    return [4 /*yield*/, gitHubPATRepository.getUserLastModified(directoryOrFile, repoName, repoOwner)];
+                case 4:
+                    username = _a.sent();
+                    return [4 /*yield*/, gitHubPATRepository.getRoleForUser(repoOwner, username)];
+                case 5:
+                    userRole = _a.sent();
+                    if (!(userRole === 'admin')) return [3 /*break*/, 7];
+                    return [4 /*yield*/, gitHubPATRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators.\n        Even though it is a change proposed by an Administrator, it is recommended that it be validated by another user."), pullRequestNumber, repoName, repoOwner)];
+                case 6:
+                    _a.sent();
+                    (0, core_1.info)("Changes were made to \"".concat(directoryOrFile, "\", however, the responsible user is an Administrator. Review by another organization/repository administrator is recommended."));
+                    return [2 /*return*/, (0, core_1.setOutput)('result', 'pending')];
+                case 7: return [4 /*yield*/, gitHubPATRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."), pullRequestNumber, repoName, repoOwner)];
+                case 8:
+                    _a.sent();
+                    (0, core_1.setFailed)("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators."));
+                    return [2 /*return*/, (0, core_1.setOutput)('result', 'failure')];
+                case 9: return [2 /*return*/, (0, core_1.setOutput)('result', 'success')];
+            }
+        });
+    });
+}
+exports.gitHubPATService = gitHubPATService;
 
 
 /***/ }),
@@ -34701,31 +34966,6 @@ function compareDate(baseDate, pullRequestDate) {
     return result;
 }
 exports.compareDate = compareDate;
-
-
-/***/ }),
-
-/***/ 6252:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__nccwpck_require__(9488), exports);
 
 
 /***/ }),
