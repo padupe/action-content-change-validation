@@ -97,4 +97,39 @@ export class GitHubAppRepository implements IGitHubRepository {
 
     return modified.commit.author.date
   }
+
+  async getUserLastModified(
+    directoryOrFile: string,
+    repoName: string,
+    repoOwner: string,
+  ): Promise<string> {
+    const user = await this.repository.request(
+      'GET /repos/{owner}/{repo}/commits?path={directoryOrFile}',
+      {
+        owner: repoOwner,
+        repo: repoName,
+        directoryOrFile: directoryOrFile,
+      },
+    )
+
+    const modified = user?.data[0]
+
+    if (!modified) {
+      setFailed('Failure at "getUserLastModified".')
+    }
+
+    return modified.author.link
+  }
+
+  async getRoleForUser(repoOwner: string, username: string): Promise<string> {
+    const user = await this.repository.request(
+      'GET /orgs/{org}/memberships/{username}',
+      {
+        org: repoOwner,
+        username,
+      },
+    )
+
+    return user.data.role
+  }
 }
