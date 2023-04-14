@@ -130,6 +130,10 @@ export class GitHubAppRepository implements IGitHubRepository {
       },
     )
 
+    if (!user) {
+      setFailed('Failure at "getRoleForUser"')
+    }
+
     return user.data.role
   }
 }
