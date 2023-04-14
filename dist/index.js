@@ -34264,10 +34264,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.authType = void 0;
 var core_1 = __nccwpck_require__(2186);
 var gitHub = __importStar(__nccwpck_require__(5438));
 var contentChangeValidation_1 = __nccwpck_require__(1036);
-var typeAuth = (0, core_1.getInput)('authType');
+exports.authType = (0, core_1.getInput)('authType');
+(0, core_1.info)("authType: ".concat(exports.authType));
 function run() {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
@@ -34276,7 +34278,7 @@ function run() {
             switch (_c.label) {
                 case 0:
                     _c.trys.push([0, 4, , 5]);
-                    if (!typeAuth) return [3 /*break*/, 2];
+                    if (!exports.authType) return [3 /*break*/, 2];
                     pullRequestNumber = Number(gitHub.context.ref.split('/')[2]);
                     repoOwner = (_a = gitHub.context.payload.repository) === null || _a === void 0 ? void 0 : _a.owner.login;
                     repoName = (_b = gitHub.context.payload.repository) === null || _b === void 0 ? void 0 : _b.name;
@@ -34740,19 +34742,21 @@ exports.contentChangeValidation = void 0;
 var core_1 = __nccwpck_require__(2186);
 var gitHubAppService_1 = __nccwpck_require__(6195);
 var gitHubPATService_1 = __nccwpck_require__(9058);
-var authType = (0, core_1.getInput)('authStrategy');
+var index_1 = __nccwpck_require__(6144);
 function contentChangeValidation(directoryOrFile, pullRequestNumber, repoName, repoOwner) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!(authType === 'app')) return [3 /*break*/, 2];
+                    if (!(index_1.authType == 'app')) return [3 /*break*/, 2];
+                    (0, core_1.info)("Call GitHub App Service");
                     return [4 /*yield*/, (0, gitHubAppService_1.gitHubAppService)(directoryOrFile, pullRequestNumber, repoName, repoOwner)];
                 case 1:
                     _a.sent();
                     return [3 /*break*/, 4];
                 case 2:
-                    if (!(authType == 'pat')) return [3 /*break*/, 4];
+                    if (!(index_1.authType == 'pat')) return [3 /*break*/, 4];
+                    (0, core_1.info)("Call GitHub PAT Service");
                     return [4 /*yield*/, (0, gitHubPATService_1.gitHubPATService)(directoryOrFile, pullRequestNumber, repoName, repoOwner)];
                 case 3:
                     _a.sent();
