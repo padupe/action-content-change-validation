@@ -1,8 +1,7 @@
-import { getInput } from '@actions/core'
+import { info } from '@actions/core'
 import { gitHubAppService } from './gitHubAppService'
 import { gitHubPATService } from './gitHubPATService'
-
-const authType = getInput('authStrategy')
+import { authType } from 'index'
 
 export async function contentChangeValidation(
   directoryOrFile: string,
@@ -10,7 +9,8 @@ export async function contentChangeValidation(
   repoName: string,
   repoOwner: string,
 ): Promise<any> {
-  if (authType === 'app') {
+  if (authType == 'app') {
+    info(`Call GitHub App Service`)
     await gitHubAppService(
       directoryOrFile,
       pullRequestNumber,
@@ -18,6 +18,7 @@ export async function contentChangeValidation(
       repoOwner,
     )
   } else if (authType == 'pat') {
+    info(`Call GitHub PAT Service`)
     await gitHubPATService(
       directoryOrFile,
       pullRequestNumber,
