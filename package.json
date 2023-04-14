@@ -1,6 +1,6 @@
 {
   "name": "action-content-change-validation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Action to validate if there has been a change in the contents of a directory",
   "main": "index.js",
   "repository": {
