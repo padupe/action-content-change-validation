@@ -7,6 +7,7 @@ info(`authType: ${authType}`)
 
 async function run(): Promise<void> {
   try {
+    info('Start Proccess')
     if (authType) {
       const pullRequestNumber = Number(gitHub.context.ref.split('/')[2])
       const repoOwner = gitHub.context.payload.repository?.owner.login
