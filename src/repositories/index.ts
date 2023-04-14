@@ -1,3 +1,2 @@
 export * from './IGitHubRepository'
-export * from './GitHubAppRepository'
-export * from './GitHubPATRepository'
+export * from './GitHubRepository'
