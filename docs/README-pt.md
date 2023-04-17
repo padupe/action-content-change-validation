@@ -68,14 +68,14 @@ jobs:
     steps:
       - name: Generate Token from GitHub App
         id: generate-token-github-app
-        uses: padupe/action-generate-token-github-app@1.0.0
+        uses: padupe/action-generate-token-github-app@1.1.2
         with:
           appId: ${{ secrets.CREDENTIALS_GITHUB_APP_ID }}
           installationId: ${{ secrets.CREDENTIALS_GITHUB_APP_INSTALLATION_ID }}
           privateKey: ${{ secrets.CREDENTIALS_GITHUB_APP_PRIVATE_KEY }}
 
       - name: Content Change Validation
-        uses: padupe/action-content-change-validation@1.0.0
+        uses: padupe/action-content-change-validation@1.1.2
         with:
           directoryOrFile: .github/workflows
           gitHubToken: ${{ steps.generate-token-github-app.outputs.token }}
