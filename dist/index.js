@@ -10640,12 +10640,13 @@ function run() {
                     repoOwner = (_a = gitHub.context.payload.repository) === null || _a === void 0 ? void 0 : _a.owner.login;
                     repoName = (_b = gitHub.context.payload.repository) === null || _b === void 0 ? void 0 : _b.name;
                     dirOrFile = (0, core_1.getInput)('directoryOrFile');
+                    (0, core_1.info)("pullRequestNumber: ".concat(pullRequestNumber, ",\nrepoOwner: ").concat(repoOwner, ",\nrepoName: ").concat(repoName, ", \ndirOrFile: ").concat(dirOrFile));
                     return [4 /*yield*/, (0, contentChangeValidation_1.contentChangeValidation)(dirOrFile, pullRequestNumber, repoName, repoOwner)];
                 case 1:
                     _c.sent();
                     return [3 /*break*/, 3];
                 case 2:
-                    (0, core_1.setFailed)('Authentication type not specified. This parameter is mandatory.');
+                    (0, core_1.setFailed)('"gitHubToken" is required!');
                     _c.label = 3;
                 case 3: return [3 /*break*/, 5];
                 case 4:
@@ -10808,7 +10809,8 @@ var GitHubRepository = /** @class */ (function () {
                         if (!modified) {
                             (0, core_1.setFailed)('Failure at "getUserLastModified".');
                         }
-                        return [2 /*return*/, modified.author.link];
+                        console.log(modified.author.login);
+                        return [2 /*return*/, modified.author.login];
                 }
             });
         });
@@ -10818,12 +10820,15 @@ var GitHubRepository = /** @class */ (function () {
             var user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
-                            org: repoOwner,
-                            username: username,
-                        })];
+                    case 0:
+                        console.log('entrou na "getRoleForUser"');
+                        return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
+                                org: repoOwner,
+                                username: username,
+                            })];
                     case 1:
                         user = _a.sent();
+                        console.log(user);
                         if (!user) {
                             (0, core_1.setFailed)('Failure at "getRoleForUser"');
                         }
@@ -10994,11 +10999,14 @@ function gitHubService(directoryOrFile, pullRequestNumber, repoName, repoOwner) 
                     return [4 /*yield*/, gitHubRepository.getBranchBase(pullRequestNumber, repoName, repoOwner)];
                 case 2:
                     branchBasePR = _a.sent();
-                    return [4 /*yield*/, gitHubRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)];
+                    return [4 /*yield*/, gitHubRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)
+                        // PAROU AQUI
+                    ];
                 case 3:
                     lastUpdateBranchBasePR = _a.sent();
                     validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
-                    if (!(validateModified == false)) return [3 /*break*/, 9];
+                    if (!(validateModified === false)) return [3 /*break*/, 9];
+                    console.log('entrou no if');
                     return [4 /*yield*/, gitHubRepository.getUserLastModified(directoryOrFile, repoName, repoOwner)];
                 case 4:
                     username = _a.sent();
@@ -11037,7 +11045,7 @@ function compareDate(baseDate, pullRequestDate) {
     var base = new Date(baseDate);
     var pullRequest = new Date(pullRequestDate);
     var result = false;
-    if (base == pullRequest) {
+    if (base === pullRequest) {
         result = true;
     }
     return result;
