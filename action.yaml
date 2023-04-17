@@ -5,24 +5,12 @@ branding:
   color: 'blue'
   icon: 'check-square'
 inputs:
-  authType:
-    description: 'Strategy for Authentication -> "app" or "pat".'
-    required: true
   directoryOrFile:
     description: 'Directory and/or file that must be evaluated.'
     required: true
-  installationId:
-    description: 'GitHub App - Installation Id.'
-    required: false
-  appId:
-    description: 'GitHub App - App Id.'
-    required: false
-  privateKey:
-    description: 'GitHub App - Private Key.'
-    required: false
-  gitHubPersonalAccessToken:
+  gitHubToken:
     description: 'Personal Access Token.'
-    required: false
+    required: true
 outputs:
   success:
     description: 'Returns whether or not there was a change in the indicated directory/file.'
