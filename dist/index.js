@@ -10523,35 +10523,18 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 2113:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.auth = void 0;
-var index_1 = __nccwpck_require__(6144);
-var octokit_1 = __nccwpck_require__(9651);
-exports.auth = (0, octokit_1.createOctokitClient)(index_1.gitHubToken);
-
-
-/***/ }),
-
 /***/ 9651:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.createOctokitClient = void 0;
+exports.gitHubAuthToken = void 0;
 var core_1 = __nccwpck_require__(6762);
-function createOctokitClient(token) {
-    var octokit = new core_1.Octokit({
-        auth: token,
-    });
-    return octokit;
-}
-exports.createOctokitClient = createOctokitClient;
+var index_1 = __nccwpck_require__(6144);
+exports.gitHubAuthToken = new core_1.Octokit({
+    auth: index_1.gitHubToken,
+});
 
 
 /***/ }),
@@ -10707,10 +10690,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitHubRepository = void 0;
 var core_1 = __nccwpck_require__(2186);
-var auth_1 = __nccwpck_require__(2113);
+var octokit_1 = __nccwpck_require__(9651);
 var GitHubRepository = /** @class */ (function () {
     function GitHubRepository() {
-        this.repository = auth_1.auth;
+        this.repository = octokit_1.gitHubAuthToken;
     }
     GitHubRepository.prototype.createCommentAtPR = function (message, pullRequestNumber, repoName, repoOwner) {
         return __awaiter(this, void 0, void 0, function () {
@@ -11002,6 +10985,7 @@ function gitHubService(directoryOrFile, pullRequestNumber, repoName, repoOwner) 
                     lastUpdateBranchBasePR = _a.sent();
                     validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
                     if (!(validateModified === false)) return [3 /*break*/, 9];
+                    console.log("Entrou no IF");
                     return [4 /*yield*/, gitHubRepository.getUserLastModified(directoryOrFile, repoName, repoOwner)];
                 case 4:
                     username = _a.sent();
@@ -11009,6 +10993,7 @@ function gitHubService(directoryOrFile, pullRequestNumber, repoName, repoOwner) 
                 case 5:
                     userRole = _a.sent();
                     if (!(userRole === 'admin')) return [3 /*break*/, 7];
+                    console.log('Entrou no IF de Admin');
                     return [4 /*yield*/, gitHubRepository.createCommentAtPR("Changes were made to \"".concat(directoryOrFile, "\". These modifications are not allowed according to the organization/repository administrators.\n        Even though it is a change proposed by an Administrator, it is recommended that it be validated by another user."), pullRequestNumber, repoName, repoOwner)];
                 case 6:
                     _a.sent();
