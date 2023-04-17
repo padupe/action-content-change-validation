@@ -102,8 +102,8 @@ jobs:
       - name: Content Change Validation
         uses: padupe/action-content-change-validation@1.0.0
         with:
-          authType: pat
-          gitHubPersonalAccessToken: ${{ secrets.PAT_TOKEN }}
+          directoryOrFile: .github/workflows
+          gitHubToken: ${{ secrets.PAT_TOKEN }}
 ```
 
 ## _Output_
