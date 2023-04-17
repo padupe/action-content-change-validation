@@ -29,7 +29,6 @@ export async function gitHubService(
     repoOwner,
   )
 
-  // PAROU AQUI
   const validateModified = compareDate(
     lastChangeDefaultBranch,
     lastUpdateBranchBasePR,
