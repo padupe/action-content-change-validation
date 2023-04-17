@@ -1,6 +1,6 @@
 import { info, setFailed, setOutput } from '@actions/core'
-import { GitHubRepository } from '@repositories/index'
-import { compareDate } from '@utils/compareDate'
+import { GitHubRepository } from '../repositories/index'
+import { compareDate } from '../utils/compareDate'
 
 const gitHubRepository = new GitHubRepository()
 
@@ -29,12 +29,14 @@ export async function gitHubService(
     repoOwner,
   )
 
+  // PAROU AQUI
   const validateModified = compareDate(
     lastChangeDefaultBranch,
     lastUpdateBranchBasePR,
   )
 
-  if (validateModified == false) {
+  if (validateModified === false) {
+    console.log('entrou no if')
     const username = await gitHubRepository.getUserLastModified(
       directoryOrFile,
       repoName,
