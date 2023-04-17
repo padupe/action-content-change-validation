@@ -1,6 +1,6 @@
 import { getInput, info, setFailed } from '@actions/core'
 import * as gitHub from '@actions/github'
-import { contentChangeValidation } from '@service/contentChangeValidation'
+import { contentChangeValidation } from './service/contentChangeValidation'
 
 export const gitHubToken = getInput('gitHubToken')
 
@@ -13,6 +13,10 @@ async function run(): Promise<void> {
       const repoName = gitHub.context.payload.repository?.name
       const dirOrFile = getInput('directoryOrFile')
 
+      info(
+        `pullRequestNumber: ${pullRequestNumber},\nrepoOwner: ${repoOwner},\nrepoName: ${repoName}, \ndirOrFile: ${dirOrFile}`,
+      )
+
       await contentChangeValidation(
         dirOrFile,
         pullRequestNumber,
@@ -20,9 +24,7 @@ async function run(): Promise<void> {
         repoOwner as string,
       )
     } else {
-      setFailed(
-        'Authentication type not specified. This parameter is mandatory.',
-      )
+      setFailed('"gitHubToken" is required!')
     }
   } catch (error) {
     setFailed(`Error at action: ${error}.`)
