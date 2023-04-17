@@ -10994,9 +10994,7 @@ function gitHubService(directoryOrFile, pullRequestNumber, repoName, repoOwner) 
                     return [4 /*yield*/, gitHubRepository.getBranchBase(pullRequestNumber, repoName, repoOwner)];
                 case 2:
                     branchBasePR = _a.sent();
-                    return [4 /*yield*/, gitHubRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)
-                        // PAROU AQUI
-                    ];
+                    return [4 /*yield*/, gitHubRepository.getLastCommitBranchBase(branchBasePR, directoryOrFile, repoName, repoOwner)];
                 case 3:
                     lastUpdateBranchBasePR = _a.sent();
                     validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
@@ -11036,10 +11034,10 @@ exports.gitHubService = gitHubService;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.compareDate = void 0;
 function compareDate(baseDate, pullRequestDate) {
-    var base = new Date(baseDate);
-    var pullRequest = new Date(pullRequestDate);
+    var base = baseDate;
+    var pullRequest = pullRequestDate;
     var result = false;
-    if (base === pullRequest) {
+    if (base == pullRequest) {
         result = true;
     }
     return result;
