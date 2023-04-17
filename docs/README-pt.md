@@ -66,13 +66,19 @@ jobs:
   content-change-validation:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Token from GitHub App
+        id: generate-token-github-app
+        uses: padupe/action-generate-token-github-app@1.0.0
+        with:
+          appId: ${{ secrets.CREDENTIALS_GITHUB_APP_ID }}
+          installationId: ${{ secrets.CREDENTIALS_GITHUB_APP_INSTALLATION_ID }}
+          privateKey: ${{ secrets.CREDENTIALS_GITHUB_APP_PRIVATE_KEY }}
+
       - name: Content Change Validation
         uses: padupe/action-content-change-validation@1.0.0
         with:
-          authType: app
-          installationId: ${{ secrets.CREDENTIALS_GITHUB_APP_INSTALLATION_ID }}
-          appId: ${{ secrets.CREDENTIALS_GITHUB_APP_ID }}
-          privateKey: ${{ secrets.CREDENTIALS_GITHUB_APP_PRIVATE_KEY }}
+          directoryOrFile: .github/workflows
+          gitHubToken: ${{ steps.generate-token-github-app.outputs.token }}
 ```
 
 ### _Personal Access Token_ (PAT)
