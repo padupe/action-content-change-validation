@@ -4,7 +4,7 @@ export function compareDate(baseDate: Date, pullRequestDate: Date): boolean {
 
   let result = false
 
-  if (base == pullRequest) {
+  if (base === pullRequest) {
     result = true
   }
 
