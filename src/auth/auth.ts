@@ -1,14 +1,4 @@
-import { Octokit } from '@octokit/core'
-import { gitHubAppToken } from '@utils/generateTokenforGitHubApp'
+import { gitHubToken } from 'index'
 import { createOctokitClient } from './octokit'
-import { getInput } from '@actions/core'
 
-const gitHubPat = getInput('gitHubPersonalAccessToken', { required: false })
-
-export function gitHubToken(authStrategy: string): Octokit {
-  if (authStrategy == 'app') {
-    return createOctokitClient(gitHubAppToken)
-  }
-
-  return createOctokitClient(gitHubPat)
-}
+export const auth = createOctokitClient(gitHubToken)
