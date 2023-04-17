@@ -36,7 +36,6 @@ export async function gitHubService(
   )
 
   if (validateModified === false) {
-    console.log('entrou no if')
     const username = await gitHubRepository.getUserLastModified(
       directoryOrFile,
       repoName,

@@ -10809,7 +10809,6 @@ var GitHubRepository = /** @class */ (function () {
                         if (!modified) {
                             (0, core_1.setFailed)('Failure at "getUserLastModified".');
                         }
-                        console.log(modified.author.login);
                         return [2 /*return*/, modified.author.login];
                 }
             });
@@ -10820,15 +10819,12 @@ var GitHubRepository = /** @class */ (function () {
             var user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log('entrou na "getRoleForUser"');
-                        return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
-                                org: repoOwner,
-                                username: username,
-                            })];
+                    case 0: return [4 /*yield*/, this.repository.request('GET /orgs/{org}/memberships/{username}', {
+                            org: repoOwner,
+                            username: username,
+                        })];
                     case 1:
                         user = _a.sent();
-                        console.log(user);
                         if (!user) {
                             (0, core_1.setFailed)('Failure at "getRoleForUser"');
                         }
@@ -11006,7 +11002,6 @@ function gitHubService(directoryOrFile, pullRequestNumber, repoName, repoOwner) 
                     lastUpdateBranchBasePR = _a.sent();
                     validateModified = (0, compareDate_1.compareDate)(lastChangeDefaultBranch, lastUpdateBranchBasePR);
                     if (!(validateModified === false)) return [3 /*break*/, 9];
-                    console.log('entrou no if');
                     return [4 /*yield*/, gitHubRepository.getUserLastModified(directoryOrFile, repoName, repoOwner)];
                 case 4:
                     username = _a.sent();
