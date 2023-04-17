@@ -1,13 +1,13 @@
 import { Octokit } from '@octokit/core'
 import { IGitHubRepository } from './IGitHubRepository'
-import { gitHubApp } from 'auth'
 import { setFailed } from '@actions/core'
+import { auth } from '@auth/auth'
 
-export class GitHubAppRepository implements IGitHubRepository {
+export class GitHubRepository implements IGitHubRepository {
   private readonly repository: Octokit
 
   constructor() {
-    this.repository = gitHubApp
+    this.repository = auth
   }
 
   async createCommentAtPR(

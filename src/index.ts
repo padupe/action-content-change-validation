@@ -2,13 +2,12 @@ import { getInput, info, setFailed } from '@actions/core'
 import * as gitHub from '@actions/github'
 import { contentChangeValidation } from '@service/contentChangeValidation'
 
-export const authType = getInput('authType')
-info(`authType: ${authType}`)
+export const gitHubToken = getInput('gitHubToken')
 
 async function run(): Promise<void> {
   try {
     info('Start Proccess')
-    if (authType) {
+    if (gitHubToken) {
       const pullRequestNumber = Number(gitHub.context.ref.split('/')[2])
       const repoOwner = gitHub.context.payload.repository?.owner.login
       const repoName = gitHub.context.payload.repository?.name

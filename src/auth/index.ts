@@ -1,2 +1,2 @@
-export * from './gitHubApp'
-export * from './gitHubPAT'
+export * from './octokit'
+export * from './auth'
