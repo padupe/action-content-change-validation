@@ -36,6 +36,7 @@ export async function gitHubService(
   )
 
   if (validateModified === false) {
+    console.log(`Entrou no IF`)
     const username = await gitHubRepository.getUserLastModified(
       directoryOrFile,
       repoName,
@@ -45,6 +46,7 @@ export async function gitHubService(
     const userRole = await gitHubRepository.getRoleForUser(repoOwner, username)
 
     if (userRole === 'admin') {
+      console.log('Entrou no IF de Admin')
       await gitHubRepository.createCommentAtPR(
         `Changes were made to "${directoryOrFile}". These modifications are not allowed according to the organization/repository administrators.
         Even though it is a change proposed by an Administrator, it is recommended that it be validated by another user.`,
