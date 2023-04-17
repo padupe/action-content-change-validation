@@ -36,8 +36,8 @@ TODO
 
 ## Related Issues
 
-This _Pull Request_ is associated with the following [issues](https://github.com/padupe/action-generate-token-github-app/issues):
-- [ISSUE_ID](https://github.com/padupe/action-generate-token-github-app/issues/ISSUE_ID) - Issue Title
+This _Pull Request_ is associated with the following [issues](https://github.com/padupe/action-content-change-validation/issues):
+- [ISSUE_ID](https://github.com/padupe/action-content-change-validation/issues/ISSUE_ID) - Issue Title
 
 ## Check list
 
