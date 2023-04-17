@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/core'
-import { gitHubToken } from '../index'
+import { getInput } from '@actions/core'
 
 export const gitHubAuthToken = new Octokit({
-  auth: gitHubToken,
+  auth: getInput('gitHubToken'),
 })

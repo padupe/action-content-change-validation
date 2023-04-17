@@ -2,7 +2,7 @@ import { getInput, info, setFailed } from '@actions/core'
 import * as gitHub from '@actions/github'
 import { contentChangeValidation } from './service/contentChangeValidation'
 
-export const gitHubToken = getInput('gitHubToken')
+const gitHubToken = getInput('gitHubToken')
 
 async function run(): Promise<void> {
   try {

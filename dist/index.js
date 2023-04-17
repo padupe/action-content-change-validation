@@ -10531,9 +10531,9 @@ function wrappy (fn, cb) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.gitHubAuthToken = void 0;
 var core_1 = __nccwpck_require__(6762);
-var index_1 = __nccwpck_require__(6144);
+var core_2 = __nccwpck_require__(2186);
 exports.gitHubAuthToken = new core_1.Octokit({
-    auth: index_1.gitHubToken,
+    auth: (0, core_2.getInput)('gitHubToken'),
 });
 
 
@@ -10604,11 +10604,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gitHubToken = void 0;
 var core_1 = __nccwpck_require__(2186);
 var gitHub = __importStar(__nccwpck_require__(5438));
 var contentChangeValidation_1 = __nccwpck_require__(1036);
-exports.gitHubToken = (0, core_1.getInput)('gitHubToken');
+var gitHubToken = (0, core_1.getInput)('gitHubToken');
 function run() {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function () {
@@ -10618,7 +10617,7 @@ function run() {
                 case 0:
                     _c.trys.push([0, 4, , 5]);
                     (0, core_1.info)('Start Proccess');
-                    if (!exports.gitHubToken) return [3 /*break*/, 2];
+                    if (!gitHubToken) return [3 /*break*/, 2];
                     pullRequestNumber = Number(gitHub.context.ref.split('/')[2]);
                     repoOwner = (_a = gitHub.context.payload.repository) === null || _a === void 0 ? void 0 : _a.owner.login;
                     repoName = (_b = gitHub.context.payload.repository) === null || _b === void 0 ? void 0 : _b.name;
