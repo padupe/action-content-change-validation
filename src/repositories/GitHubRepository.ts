@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/core'
 import { IGitHubRepository } from './IGitHubRepository'
 import { setFailed } from '@actions/core'
-import { auth } from '@auth/auth'
+import { auth } from '../auth/auth'
 
 export class GitHubRepository implements IGitHubRepository {
   private readonly repository: Octokit
@@ -118,7 +118,7 @@ export class GitHubRepository implements IGitHubRepository {
       setFailed('Failure at "getUserLastModified".')
     }
 
-    return modified.author.link
+    return modified.author.login
   }
 
   async getRoleForUser(repoOwner: string, username: string): Promise<string> {
