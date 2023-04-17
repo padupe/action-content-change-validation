@@ -1,10 +1,10 @@
 export function compareDate(baseDate: Date, pullRequestDate: Date): boolean {
-  const base = new Date(baseDate)
-  const pullRequest = new Date(pullRequestDate)
+  const base = baseDate
+  const pullRequest = pullRequestDate
 
   let result = false
 
-  if (base === pullRequest) {
+  if (base == pullRequest) {
     result = true
   }
 
