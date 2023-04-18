@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Generate Token from GitHub App
         id: generate-token-github-app
-        uses: padupe/action-generate-token-github-app@1.0.0
+        uses: padupe/action-generate-token-github-app@1.0.2
         with:
           appId: ${{ secrets.CREDENTIALS_GITHUB_APP_ID }}
           installationId: ${{ secrets.CREDENTIALS_GITHUB_APP_INSTALLATION_ID }}
@@ -84,7 +84,7 @@ jobs:
         uses: padupe/action-content-change-validation@1.1.4
         with:
           directoryOrFile: .github/workflows
-          gitHubToken: ${{ steps.generate-token-github-app.outputs.token }}
+          gitHubToken: ${{ steps.generate-token-github-app.outputs.gitHubToken }}
 ```
 
 ### Personal Access Token (PAT)
