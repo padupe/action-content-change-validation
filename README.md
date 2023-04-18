@@ -81,7 +81,7 @@ jobs:
           privateKey: ${{ secrets.CREDENTIALS_GITHUB_APP_PRIVATE_KEY }}
 
       - name: Content Change Validation
-        uses: padupe/action-content-change-validation@1.1.3
+        uses: padupe/action-content-change-validation@1.1.4
         with:
           directoryOrFile: .github/workflows
           gitHubToken: ${{ steps.generate-token-github-app.outputs.token }}
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Content Change Validation
-        uses: padupe/action-content-change-validation@1.1.3
+        uses: padupe/action-content-change-validation@1.1.4
         with:
           directoryOrFile: .github/workflows
           gitHubToken: ${{ secrets.PAT_TOKEN }}
