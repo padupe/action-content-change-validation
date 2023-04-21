@@ -112,4 +112,4 @@ Valor _booleano_.
 
 ## Contribua com o Projeto
 
-Confira nosso guia para [CONTRIBUIÇÃO](../CONTRIBUTING.md) na língua inglesa.
+Confira nosso guia para [CONTRIBUIÇÃO](./CONTRIBUTING.pt-BR.md).

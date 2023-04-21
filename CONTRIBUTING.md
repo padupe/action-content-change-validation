@@ -21,15 +21,15 @@ To carry out the development of a feature or even a fix, we recommend that the b
 
 - English language;
 - Type:
-    -  **build**: Changes that affect the project's build system;
-    - **ci**: Changes to CI configuration scripts;
-    - **docs**: Updates or additions will only be made in the context of documentations;
-    - **feat**: A new feature or functionality will be developed;
-    - **fix**: A fix will be performed;
-    - **perf**: Code changes that improve project performance;
-    - **refactor**: Changes to the code that change its structure, but are not related to bug fixes or new features;
-    - **style**: Changes that do not affect the project's programming logic, such as removing whitespace, etc;
-    - **test**: Addition of new tests or missing tests.
+  -  **build**: Changes that affect the project's build system;
+  - **ci**: Changes to CI configuration scripts;
+  - **docs**: Updates or additions will only be made in the context of documentations;
+  - **feat**: A new feature or functionality will be developed;
+  - **fix**: A fix will be performed;
+  - **perf**: Code changes that improve project performance;
+  - **refactor**: Changes to the code that change its structure, but are not related to bug fixes or new features;
+  - **style**: Changes that do not affect the project's programming logic, such as removing whitespace, etc;
+  - **test**: Addition of new tests or missing tests.
 - Issue id;
 - Brief summary of what will be developed/fixed in the branch.
 
@@ -42,7 +42,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 - English language;
 - Type (build, ci, docs, feat, fix, perf, refactor, style or test);
 - Context;
-    - Indicating the path of the added or updated file;
+  - Indicating the path of the added or updated file;
 - Commit message.
 
 **Example**: `"docs(README.md): project documentation update."`
