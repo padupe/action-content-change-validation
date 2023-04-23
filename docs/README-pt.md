@@ -4,7 +4,7 @@
 
 - [Descrição](#descrição)
 - [Fluxo](#fluxo)
-- [Requisitos]
+- [Requisitos](#requisitos)
   - [GitHub App](#github-app)
     - [Permissões necessárias](#permissões-necessárias)
     - [_Secrets_](#secrets)
