@@ -35,9 +35,15 @@ _Action_ para validar se o conteúdo de um arquivo (ou diretório) foi alterado.
 
 #### _Secrets_
 
-A _secret_ `CREDENTIALS_GITHUB_APP_PRIVATE_KEY` deve ser informada no seguinte formato (sem quebra de linhas):
+A _secret_ `CREDENTIALS_GITHUB_APP_PRIVATE_KEY` deve ser no formato PEM:
 
-`-----BEGIN RSA PRIVATE KEY-----\n ... \n-----END RSA PRIVATE KEY-----`
+```
+-----BEGIN RSA PRIVATE KEY-----
+  9999999999999999999999999999999999999999999999999999999999999999
+  QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+  ....
+  -----END RSA PRIVATE KEY-----
+```
 
 ### _Personal Access Token_ (PAT)
 > Token de Acesso Pessoal
@@ -68,7 +74,7 @@ jobs:
     steps:
       - name: Generate Token from GitHub App
         id: generate-token-github-app
-        uses: padupe/action-generate-token-github-app@1.0.3
+        uses: padupe/action-generate-token-github-app@1.1.3
         with:
           appId: ${{ secrets.CREDENTIALS_GITHUB_APP_ID }}
           installationId: ${{ secrets.CREDENTIALS_GITHUB_APP_INSTALLATION_ID }}
