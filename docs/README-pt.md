@@ -10,6 +10,11 @@
     - [_Secrets_](#secrets)
   - [_Personal Access Token_ (PAT)](#personal-access-token-pat)
     - [Permissões necessárias](#permissc3b5es-necessc3a1rias-1)
+- [Uso](#uso)
+  - [GitHub App](#github-app-1)
+  - [_Personal Access Token (PAT)_](#personal-access-token-pat-1)
+- [_Output_](#output)
+- [Contribua com o Projeto](#contribua-com-o-projeto)
 
 ## Descrição
 
